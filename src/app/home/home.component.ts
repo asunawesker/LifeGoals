@@ -30,24 +30,47 @@ import { DataService } from '../data.service';
 })
 export class HomeComponent implements OnInit {
 
-  itemCount: number = 0;
-  btnText: string = 'Add an item';
-  goalText: string = 'My first life goal';
-  goals : string[] = [];
+  goals : any[] = [];
+  itemCount: number = this.goals.length;
+  btnText: string = 'Añadir album';
+  artistName: string = '';
+  albumName: string = '';  
 
   constructor(private _data: DataService) { }
 
   ngOnInit(): void {
-    this._data.goal.subscribe(res => this.goals = res);
     this.itemCount = this.goals.length;
+    this._data.goal.subscribe(res=> this.goals = res);
     this._data.changeGoal(this.goals);
+
+    this._data.getGoals()
+      .subscribe((data: any) => {
+        alert(JSON.stringify(data.albums)); 
+
+        this.goals = data.albums;
+        this._data.changeGoal(this.goals);
+    });
   }
 
   addItem(){
-    this.goals.push(this.goalText);
-    this.goalText = '';
-    this.itemCount = this.goals.length;
-    this._data.changeGoal(this.goals);
+    var album_json = {
+      album_name: this.albumName,
+      album_artist: this.artistName
+    }
+
+    if (this.artistName == '' || this.albumName == '') {
+      window.alert('Debe llenar todos los inputs');
+    } else {
+      this._data.newGoal(album_json)
+      .subscribe((data: any) => {
+        this.goals.push(album_json);
+        this.artistName='';
+        this.itemCount=this.goals.length;
+        this._data.changeGoal(this.goals);
+      });
+    }
+
+    
   }
 
   removeItem(i: number){
