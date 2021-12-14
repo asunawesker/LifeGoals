@@ -6,6 +6,17 @@
     margin-bottom: 1em;
 }
 
+.container-form {
+    color: #122013;
+    border-radius: .3em;
+    margin-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 4em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    width:800px; margin:0 auto;
+}
+
 .col {
     padding: .4em 1.3em;
 }
@@ -21,7 +32,7 @@
 input.txt {
   border: 0;
   padding: 1em;
-  width: 80%;
+  width: 100%;
   margin-bottom: 2em;
 }
 
