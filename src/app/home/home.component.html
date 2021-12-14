@@ -1,22 +1,31 @@
+<div class="container-form color-light" [@goals]=goals.length>
+    <div>
+        <p class="sm">Utiliza este formulario para añadir todos tus álbumes favoritos</p>
+        <form>
+            <input type="text" class="txt" name="item" placeholder="Nombre del artista, banda o grupo" [(ngModel)] = "artistName">
+            <input type="text" class="txt" name="item" placeholder="Album favorito de {{ artistName }}" [(ngModel)] = "albumName">
+            <input type="submit" class="btn" [value]="btnText" (click)="addItem()">
+        </form>
+    </div>
+</div>
+<div style="margin: 2em;"></div>
 <div class="container color-dark">
     <div class="col">
-        <p>Add a bucket list item</p>
+        <p>Artista</p>
     </div>
     <div class="col">
-        <p>Your bucket list ({{ itemCount }})</p>
+        <p>Álbumes</p>
     </div>
 </div>
 <div class="container color-light" [@goals]=goals.length>
     <div class="col">
-        <p class="sm">Use this form below to add a new bucket list goal.What do you want to do with your life?</p>
-        <form>
-            <input type="text" class="txt" name="item" placeholder="Life goal ..." [(ngModel)] = "goalText">
-            <input type="submit" class="btn" [value]="btnText" (click)="addItem()">
-        </form>
+        <p class="life-container" *ngFor="let goal of goals; let i = index" (click)="removeItem(i)">
+            {{ goal.album_artist }}
+        </p>
     </div>
     <div class="col">
         <p class="life-container" *ngFor="let goal of goals; let i = index" (click)="removeItem(i)">
-            {{ goal }}
+            {{ goal.album_name }}
         </p>
     </div>
 </div>
